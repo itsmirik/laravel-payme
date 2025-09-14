@@ -16,6 +16,9 @@ class Payme
     public function handle(Request $request)
     {
         $handler = new PaymeRequestHandler($request);
-        return (new PaymeService($handler->params))->{$handler->method}();
+
+        return app(PaymeService::class, [
+            'params' => $handler->params,
+        ])->{$handler->method}();
     }
 }
